@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 class UserAdd(TemplateView):
     template_name = "useradd.html"
 
-
+    """
       if request.method == "POST":
             useraddform = UserAddForm(request.POST)
             if useraddform.is_valid():
@@ -34,7 +34,7 @@ class UserAdd(TemplateView):
 
     return render(request, "useradd.html", {"form": useraddform})
 
-
+"""
 
 class UserView(TemplateView):
     template_name = "userread.html"
