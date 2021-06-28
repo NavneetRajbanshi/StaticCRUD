@@ -4,6 +4,8 @@ from . import views
 
 app_name = "user"
 urlpatterns = [
-    path("", views.UserAdd.as_view(), name="useradd"),
-    path("userread/", views.UserView.as_view(), name="userread"),
+    path("adduser/", views.create_user, name="useradd"),
+    path("userread/", views.viewUser, name="userread"),
+    path("deleteuser/<int:id>/", views.delete_user, name="deletedata"),
+    path("<int:id>/", views.update_user, name="updateuser"),
 ]
