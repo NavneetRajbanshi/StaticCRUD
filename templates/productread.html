@@ -23,7 +23,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>General Form</h1>
+                <h1>Product Table</h1>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -40,43 +40,47 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Products</h3>
+                <a class="btn btn-success" href="{% url 'product:productadd' %}" role="button">Add New Product</a>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
                   <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Product Name</th>
                     <th>Product Quantity</th>
                     <th>Stock</th>
                     <th>Price</th>
-                    <th>Image</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
+                  
+                  {% for data in datas %}
                   <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.7</td>
-                    <td>Win 98+ / OSX.1+</td>
-                    <td>1.7</td>
-                    <td>A</td>
+                    <td>{{data.id}}</td>
+                    <td>{{data.productName}}</td>
+                    <td>{{data.productQuantity}} 1.1</td>
+                    <td>{{data.price}}</td>
+                    <td>{{data.stock}}</td>
+                    <td>
+                      <a class="btn btn-success" href="{% url 'product:updateproduct' data.id %}"
+                        role="button">Edit</a>
+                      <form action="{% url 'product:deleteproduct' data.id %}" method="POST" class=d-inline>
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                      </form>
+
+
+
+                    </td>
+                   
                   </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.8</td>
-                    <td>Win 98+ / OSX.1+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Seamonkey 1.1</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
+                  {% endfor %}
+                  
                   </tbody>
+                  
                 </table>
               </div>
               <!-- /.card-body -->
