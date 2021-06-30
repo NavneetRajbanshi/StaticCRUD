@@ -17,9 +17,13 @@ def create_user(request):
         fm = UserForm(request.POST, request.FILES)
         print(fm["image"])
         if fm.is_valid():
-            print("this the valid request")
-            fm.save()
-            messages.success(request, "New user has been created")
+            nm = fm.changed_data["name"]
+            em = fm.changed_data["email"]
+            ad = fm.changed_data["address"]
+            pw = fm.changed_data["password"]
+            reg = User(name=nm, email=em, address=ad, password=pw)
+            reg.save()
+
         else:
             print("the form is not valid")
 
