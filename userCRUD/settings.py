@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
     "product",
     "category",
+    "login",
 ]
 
 MIDDLEWARE = [
