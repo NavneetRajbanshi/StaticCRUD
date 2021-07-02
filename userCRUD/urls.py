@@ -10,6 +10,7 @@ urlpatterns = [
     path("user/", include("user.urls")),
     path("product/", include("product.urls")),
     path("category/", include("category.urls")),
+    path("", include("login.urls")),
 ]
 
 urlpatterns = urlpatterns + static(
