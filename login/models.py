@@ -16,11 +16,8 @@ class UserManager(BaseUserManager):
             raise ValueError("Users must have an email address")
         if not password:
             raise ValueError("Users must have a password")
-        user_obj = self.model(
-            email=self.normalize_email(email), full_name=full_name
-        )
-        # password change
-        user_obj.set_password(password)
+        user_obj = self.model(email=self.normalize_email(email), full_name=full_name)
+        user_obj.set_password(password)  # change user password
         user_obj.staff = is_staff
         user_obj.admin = is_admin
         user_obj.active = is_active
@@ -35,11 +32,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, full_name=None, password=None):
         user = self.create_user(
-            email,
-            full_name=full_name,
-            password=password,
-            is_staff=True,
-            is_admin=True,
+            email, full_name=full_name, password=password, is_staff=True, is_admin=True
         )
         return user
 
@@ -47,16 +40,12 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
-    # login
-    active = models.BooleanField(default=True)
-    # staff user non superuser
-    staff = models.BooleanField(default=False)
-    # superuser
-    admin = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)  # can login
+    staff = models.BooleanField(default=False)  # staff user non superuser
+    admin = models.BooleanField(default=False)  # superuser
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    # username
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "email"  # username
 
     REQUIRED_FIELDS = []
 

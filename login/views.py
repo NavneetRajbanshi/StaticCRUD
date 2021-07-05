@@ -12,7 +12,7 @@ from .forms import LoginForm, RegisterForm
 
 class LoginView(FormView):
     form_class = LoginForm
-    success_url = ""
+    success_url = "/"
     template_name = "login.html"
 
     def form_valid(self, form):
