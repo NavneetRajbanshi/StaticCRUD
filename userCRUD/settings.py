@@ -85,7 +85,7 @@ WSGI_APPLICATION = "userCRUD.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "StaticCRUD",
+        "NAME": "StaticCRUD1",
         "USER": "postgres",
         "PASSWORD": "hero123",
         "HOST": "localhost",
