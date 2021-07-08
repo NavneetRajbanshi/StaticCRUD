@@ -3,6 +3,8 @@ from django.http.response import HttpResponseRedirect
 from django.views.generic import FormView
 
 from django.shortcuts import render
+from .models import User
+from user.forms import UserForm
 
 
 from .forms import LoginForm, RegisterForm
