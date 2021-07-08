@@ -36,3 +36,27 @@ def register(request):
         form.save()
         return HttpResponseRedirect("/")
     return render(request, "register.html", context)
+
+
+def login_user(request):
+    if request.user.is_authenticated:
+        print("authenticated")
+        return HttpResponseRedirect("user/userread")
+    if request.method == "POST":
+        fm = LoginForm(request.POST)
+        if fm.is_valid():
+            email = fm.cleaned_data.get("email")
+            password = fm.cleaned_data.get("password")
+            user = authenticate(request, username=email, password=password)
+            if not user.is_email_verified:
+                messages.error(request, "Email is not verifed")
+                return HttpResponseRedirect("/")
+            if user is not None:
+                login(request, user)
+                messages.success(
+                    request,
+                    "Login successful",
+                )
+                return HttpResponseRedirect("user/userread")
+    fm = LoginForm()
+    return render(request, "login.html", {"form": fm})
