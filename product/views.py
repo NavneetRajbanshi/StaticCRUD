@@ -2,11 +2,13 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from .models import Product
 from product.form import ProductForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
 
+@login_required(login_url="/")
 def create_product(request):
     if request.method == "POST":
         fm = ProductForm(request.POST, request.FILES)
@@ -21,11 +23,13 @@ def create_product(request):
     return render(request, "productadd.html", {"forms": fm})
 
 
+@login_required(login_url="/")
 def show_product(request):
     data = Product.objects.all()
     return render(request, "productread.html", {"datas": data})
 
 
+@login_required(login_url="/")
 def delete_product(request, id):
     if request.method == "POST":
         data = Product.objects.get(pk=id)
@@ -35,6 +39,7 @@ def delete_product(request, id):
         return HttpResponseRedirect("/product/productread")
 
 
+@login_required(login_url="/")
 def update_product(request, id):
     if request.method == "POST":
         data = Product.objects.get(pk=id)

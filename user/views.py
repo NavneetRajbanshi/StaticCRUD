@@ -4,11 +4,13 @@ from django.shortcuts import render
 from django.contrib import messages
 from .models import User
 from user.forms import UserForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
 
+@login_required(login_url="/")
 def create_user(request):
     if request.method == "POST":
         fm = UserForm(request.POST, request.FILES)
@@ -24,11 +26,13 @@ def create_user(request):
     return render(request, "useradd.html", {"forms": fm})
 
 
+@login_required(login_url="/")
 def viewUser(request):
     data = User.objects.all()
     return render(request, "userread.html", {"datas": data})
 
 
+@login_required(login_url="/")
 def delete_user(request, id):
     if request.method == "POST":
         data = User.objects.get(pk=id)
@@ -39,6 +43,7 @@ def delete_user(request, id):
         return HttpResponseRedirect("/user/userread")
 
 
+@login_required(login_url="/")
 def update_user(request, id):
     if request.method == "POST":
         data = User.objects.get(pk=id)

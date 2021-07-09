@@ -54,6 +54,7 @@ def send_activation_email(user, request):
 
 
 def login_user(request):
+    print("hello")
     if request.user.is_authenticated:
         print("authenticated")
         return HttpResponseRedirect("user/userread")
@@ -158,8 +159,9 @@ def activate_user(request, uidb64, token):
         user.active = True
         user.save()
         messages.success(request, "Email Verified. Please sign in to continue")
-        return HttpResponseRedirect("/")
-    return render(request, "activation-failed.html", {"user": user})
+        return redirect(reverse("login.html"))
+    else:
+        return render(request, "activation-failed.html", {"user": user})
 
 
 def password_reset_request(request):
