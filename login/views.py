@@ -5,7 +5,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from django.db.models.query_utils import Q
 from django.http import HttpResponse
-from django.contrib.messages import constants
+from django.contrib import messages
 from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from django.views.generic import FormView
@@ -103,28 +103,40 @@ class LoginView(FormView):
 
 
 def register(request):
-    form = RegisterForm(request.POST or None)
-    context = {"form": form}
+
     if request.method == "POST":
-        if form.is_valid():
-            user = form.save()
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
+        username = request.POST["username"]
+        password1 = request.POST["password1"]
+        password2 = request.POST["password2"]
+        email = request.POST["email"]
 
-            user.active = False
-            user.save()
-            send_activation_email(user, request)
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                messages.info(request, "Username Taken")
+                return redirect("register")
+            elif User.objects.filter(email=email).exists():
+                messages.info(request, "Email Taken")
+                return redirect("register")
+            else:
+                user = User.objects.create_user(
+                    username=username,
+                    password=password1,
+                    email=email,
+                    first_name=first_name,
+                    last_name=last_name,
+                )
+                user.save()
+                print("user created")
+                return redirect("login")
 
-            messages.success(
-                request,
-                "A link has been sent to your email. Please click on the link"
-                " to verify",
-            )
-            return HttpResponseRedirect("/register")
         else:
-            messages.error(request, "Cannot register. Please try again")
-            return redirect("/register")
-    else:
+            messages.info(request, "password not matching..")
+        return redirect("register")
 
-        return render(request, "register.html", context)
+    else:
+        return render(request, "register.html")
 
 
 def logout_user(request):

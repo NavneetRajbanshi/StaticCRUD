@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+{% load static %}    
     
 <head>
 	<title>Register</title>
@@ -126,6 +127,12 @@
 						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
 					</div>
 				</div>
+                
+                <div>
+                    {% for message in messages %}
+                    <h3> {{message}}  </h3>
+                    {% endfor %}
+                </div>
 			</div>
 		</div>
 	</div>

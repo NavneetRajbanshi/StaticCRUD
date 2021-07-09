@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+
+
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {messages.ERROR: "danger"}
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     "product",
     "category",
     "login",
+    "crispy_forms",
 ]
 
 AUTH_USER_MODEL = "login.User"
@@ -156,15 +159,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "images")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-EMAIL_FROM_USER = "django.navneet@gmail.com"
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "django.navneet@gmail.com"
-EMAIL_HOST_PASSWORD = "hero123"
-
-
 # manually added
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MESSAGE_TAGS = {messages.ERROR: "danger"}
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# SMTP Configuration
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "navneetcodavatar@gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "navneetcodavatar@gmail.com"
+EMAIL_HOST_PASSWORD = "Navneet123"
+
+
+DEFAULT_FROM_MAIL = "navneetcodavatar@gmail.com"
