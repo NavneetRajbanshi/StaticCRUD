@@ -8,6 +8,7 @@ authors = ["NavneetRajbanshi <navneetrajbanshi85@gmail.com>"]
 python = "^3.9"
 Django = "^3.2.4"
 psycopg2 = "^2.9.1"
+pyglet = "^1.5.18"
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"
