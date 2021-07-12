@@ -8,10 +8,6 @@ urlpatterns = [
     path("", views.login_user, name="login"),
     path("register/", views.register, name="register"),
     path("logout/", views.logout_user, name="logout"),
-    path(
-        "activate-user/<uidb64>/<token>", views.activate_user, name="activate"
-    ),
-    path(
-        "password_reset", views.password_reset_request, name="password_reset"
-    ),
+    path("activate-user/<uidb64>/<token>", views.activate_user, name="activate"),
+    path("password_reset", views.password_reset_request, name="password_reset"),
 ]
