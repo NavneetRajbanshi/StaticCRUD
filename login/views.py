@@ -65,9 +65,9 @@ def login_user(request):
             password = fm.cleaned_data.get("password")
             user = authenticate(request, username=email, password=password)
 
-            ''' if not user.is_email_verified:
+            """ if not user.is_email_verified:
                 messages.error(request, "Email is not verifed")
-                return HttpResponseRedirect("/") '''
+                return HttpResponseRedirect("/") """
             if user is not None:
                 login(request, user)
                 messages.success(
@@ -77,31 +77,6 @@ def login_user(request):
                 return HttpResponseRedirect("user/userread")
     fm = LoginForm()
     return render(request, "login.html", {"form": fm})
-
-
-""" 
-class LoginView(FormView):
-    form_class = LoginForm
-    success_url = "/"
-    template_name = "login.html"
-
-    def form_valid(self, form):
-        request = self.request
-        current_user = request.user
-        print(current_user)
-        if request.user.is_authenticated:
-
-            return HttpResponseRedirect("user/userread")
-        else:
-            if form.is_valid():
-                email = form.cleaned_data.get("email")
-                password = form.cleaned_data.get("password")
-                user = authenticate(request, username=email, password=password)
-
-                if user is not None:
-                    login(request, user)
-                    return HttpResponseRedirect("user/userread")
- """
 
 
 def register(request):
@@ -145,7 +120,7 @@ def activate_user(request, uidb64, token):
         user = None
 
     if user and generate_token.check_token(user, token):
-        #user.is_email_verified = True
+        # user.is_email_verified = True
         user.active = True
         user.save()
         messages.success(request, "Email Verified. Please sign in to continue")
