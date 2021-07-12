@@ -78,7 +78,7 @@ def login_user(request):
     fm = LoginForm()
     return render(request, "login.html", {"form": fm})
 
-
+''' 
 class LoginView(FormView):
     form_class = LoginForm
     success_url = "/"
@@ -100,7 +100,7 @@ class LoginView(FormView):
                 if user is not None:
                     login(request, user)
                     return HttpResponseRedirect("user/userread")
-
+ '''
 
 def register(request):
     form = RegisterForm(request.POST or None)
