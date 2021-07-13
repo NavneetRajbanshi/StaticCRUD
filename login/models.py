@@ -51,7 +51,7 @@ class User(AbstractBaseUser):
     staff = models.BooleanField(default=False)  # staff user non superuser
     admin = models.BooleanField(default=False)  # superuser
     timestamp = models.DateTimeField(auto_now_add=True)
-    
+
     USERNAME_FIELD = "email"  # username
 
     REQUIRED_FIELDS = []
@@ -86,3 +86,16 @@ class User(AbstractBaseUser):
     @property
     def is_active(self):
         return self.active
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="images/",
+        default="images/default.png",
+    )
+
+    def __str__(self):
+        return self.user.email

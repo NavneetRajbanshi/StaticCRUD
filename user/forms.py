@@ -38,13 +38,20 @@ class UserForm(forms.ModelForm):
                     "placeholder": "Enter Your Password",
                 }
             ),
+            "image": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "style": "width:36ch",
+                    "placeholder": "Upload your Image",
+                }
+            ),
         }
 
     def clean_email(self):
         email = self.cleaned_data["email"]
         print(email)
 
-        if not email.endswith("@cowhite.com"):
+        if not email.endswith("@yahoo.com"):
             raise forms.ValidationError("Domain of email is not valid")
         else:
             return email

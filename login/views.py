@@ -12,6 +12,7 @@ from django.views.generic import FormView
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from login.models import UserProfile
 from django.utils.encoding import (
     force_bytes,
     force_str,
@@ -25,7 +26,7 @@ from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render
 
 
-from .forms import LoginForm, RegisterForm, User
+from .forms import LoginForm, RegisterForm, User, UserImageForm
 
 # Create your views here.
 
@@ -165,3 +166,27 @@ def password_reset_request(request):
         template_name="password_reset.html",
         context={"password_reset_form": password_reset_form},
     )
+
+
+def show_dashboard(request):
+    try:
+        profile = request.user.userprofile
+
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=request.user)
+        print(profile)
+
+    if request.method == "POST":
+        form = UserImageForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = request.user
+            data.save()
+
+            return HttpResponseRedirect("dashboard")
+        else:
+            messages.error(request, "Could not upload image, try again.")
+    else:
+        form = UserImageForm(instance=profile)
+
+        return render(request, "dashboard.html", {"form": form})
