@@ -38,13 +38,6 @@ class UserForm(forms.ModelForm):
                     "placeholder": "Enter Your Password",
                 }
             ),
-            "image": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "style": "width:36ch",
-                    "placeholder": "Upload your Image",
-                }
-            ),
         }
 
     def clean_email(self):
