@@ -45,7 +45,7 @@ def update_product(request, id):
         data = Product.objects.get(pk=id)
         fm = ProductForm(request.POST, instance=data)
         if fm.is_valid():
-            print("hello")
+            fm.save
 
     data = Product.objects.get(pk=id)
     fm = ProductForm(instance=data)

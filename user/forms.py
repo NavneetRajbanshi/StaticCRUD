@@ -40,11 +40,4 @@ class UserForm(forms.ModelForm):
             ),
         }
 
-    def clean_email(self):
-        email = self.cleaned_data["email"]
-        print(email)
-
-        if not email.endswith("@yahoo.com"):
-            raise forms.ValidationError("Domain of email is not valid")
-        else:
-            return email
+   

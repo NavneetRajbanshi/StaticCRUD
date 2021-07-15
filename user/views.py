@@ -14,17 +14,18 @@ from .models import User
 @login_required(login_url="/")
 def create_user(request):
     if request.method == "POST":
+        print("check")
         fm = UserForm(request.POST, request.FILES)
         if fm.is_valid():
             fm.save()
-            print("the form is valid")
             return HttpResponseRedirect("/user/userread")
+
         else:
-            print("the form is not valid")
+            print("error")
 
     else:
-        fm = UserForm()
         print("this is the get request")
+        fm = UserForm()
     return render(request, "useradd.html", {"forms": fm})
 
 
