@@ -1,8 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from .models import Product
-from product.form import ProductForm
-from django.contrib.auth.decorators import login_required
+from .forms import ProductForm
 
 
 # Create your views here.
@@ -45,8 +45,9 @@ def update_product(request, id):
         data = Product.objects.get(pk=id)
         fm = ProductForm(request.POST, instance=data)
         if fm.is_valid():
-            fm.save
-
+            print("hello")
+            fm.save()
+            return HttpResponseRedirect("/product/productread")
     data = Product.objects.get(pk=id)
     fm = ProductForm(instance=data)
 
