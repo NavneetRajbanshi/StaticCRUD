@@ -190,4 +190,3 @@ def show_dashboard(request):
         form = UserImageForm(instance=profile)
 
         return render(request, "dashboard.html", {"form": form})
-
